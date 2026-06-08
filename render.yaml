@@ -1,0 +1,13 @@
+# render.yaml — Drop this in the repo root to auto-configure Render deployment
+
+services:
+  - type: web
+    name: yt-summarizer-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: HUGGINGFACEHUB_API_TOKEN
+        sync: false   # Set this manually in the Render dashboard
+    healthCheckPath: /
